@@ -1,0 +1,145 @@
+#Q1
+##import numpy
+##from matplotlib.pyplot import *
+##
+##years, emissions = numpy.loadtxt('emissions/historical_ghgs.csv', usecols=(0, 1),
+##                                 delimiter=',', skiprows=1, unpack=True)
+##
+##plot(years, emissions, 'r-', label='Carbon')  # Plot c vs cyear using a red line.
+##
+##legend(loc='upper left')  # Add a legend to the graph.
+##title("Historical Carbon Emissions")  # Set the title for the plot.
+##xlabel("Year")  # Label the x axis.
+##ylabel("Carbon Emissions (pg)")  # Label the y axis.
+##grid(True)  # Turn on the grid lines.
+##show()  # Make the graph show up in the notebook.
+
+#Q2
+import numpy
+from matplotlib.pyplot import *
+
+def plot_carbon_emmissions():
+    years, emissions = numpy.loadtxt('emissions/historical_ghgs.csv', usecols=(0, 1),
+                                     delimiter=',', skiprows=1, unpack=True)
+
+    plot(years, emissions, 'r-', label='Carbon')  
+
+    legend(loc='upper left')
+    title("Historical Carbon Emissions")  
+    xlabel("Year")
+    ylabel("Carbon Emissions (pg)")  
+    grid(True)
+    show()
+##plot_carbon_emmissions()
+
+def plot_methane_emmissions():
+    years, emissions = numpy.loadtxt('emissions/historical_ghgs.csv', usecols=(0, 2),
+                                 delimiter=',', skiprows=1, unpack=True)
+
+    plot(years, emissions, 'r-', label='Methane')  
+
+    legend(loc='upper left')
+    title("Historical Methane Emissions")  
+    xlabel("Year")
+    ylabel("Methane Emissions (tg)")  
+    grid(True)
+    show()
+##plot_methane_emmissions()
+
+def plot_carbon_rcps():
+    year, concentration_1 = numpy.loadtxt('emissions/rcp_2.6_data.csv', usecols=(0,7),
+                                        delimiter=',', skiprows=1,unpack=True)
+    year, concentration_2 = numpy.loadtxt('emissions/rcp_4.5_data.csv', usecols=(0,7),
+                                        delimiter=',', skiprows=1,unpack=True)
+    year, concentration_3 = numpy.loadtxt('emissions/rcp_6.0_data.csv', usecols=(0,7),
+                                        delimiter=',', skiprows=1,unpack=True)
+    year, concentration_4 = numpy.loadtxt('emissions/rcp_8.5_data.csv', usecols=(0,7),
+                                        delimiter=',', skiprows=1,unpack=True)
+    plot(year, concentration_1,'r-', label = 'rcp_2.6')
+    plot(year, concentration_2,'m-', label = 'rcp_4.5')
+    plot(year, concentration_3,'b-', label = 'rcp_6.0')
+    plot(year, concentration_4,'y-', label = 'rcp_8.5')
+
+    legend(loc='upper left')
+    title("CO2 concentration")  
+    xlabel("Year")
+    ylabel("CO2 concentration(ppm)")  
+    grid(True)
+    show()
+
+##plot_carbon_rcps()
+
+from simmod import run_simmod
+def simulate_rcp_2_6():
+    start_year = 1900
+    end_year = 2100
+    rcp = '2.6'
+    CS_param = 3.0
+    out_file = "results/rcp2.6.csv"
+    results = run_simmod(start_year,end_year,rcp,CS_param,out_file)
+##simulate_rcp_2_6()
+
+def plot_rcp_2_6():
+    years, temp_def = numpy.loadtxt('results/rcp2.6.csv', usecols=(2, 30),
+                                 delimiter=',', skiprows=1, unpack=True)
+
+    plot(years, temp_def, 'r-', label='Temperature')  
+
+    legend(loc='upper left')
+    title("Temperature Difference")  
+    xlabel("Year")
+    ylabel("Temperature(s)")  
+    grid(True)
+    show()
+
+##plot_rcp_2_6()
+
+def simulate_rcp_4_5():
+    start_year = 1900
+    end_year = 2100
+    rcp = '4.5'
+    CS_param = 3.0
+    out_file = "results/rcp4.5.csv"
+    results = run_simmod(start_year,end_year,rcp,CS_param,out_file)
+##simulate_rcp_4_5()
+
+def simulate_rcp_6_0():
+    start_year = 1900
+    end_year = 2100
+    rcp = '6.0'
+    CS_param = 3.0
+    out_file = "results/rcp6.0.csv"
+    results = run_simmod(start_year,end_year,rcp,CS_param,out_file)
+##simulate_rcp_6_0()
+
+def simulate_rcp_8_5():
+    start_year = 1900
+    end_year = 2100
+    rcp = '8.5'
+    CS_param = 3.0
+    out_file = "results/rcp8.5.csv"
+    results = run_simmod(start_year,end_year,rcp,CS_param,out_file)
+##simulate_rcp_8_5()
+
+def simulate_all_rcps():
+    year, temp_def_1 = numpy.loadtxt('results/rcp2.6.csv', usecols=(2,30),
+                                        delimiter=',', skiprows=1,unpack=True)
+    year, temp_def_2 = numpy.loadtxt('results/rcp4.5.csv', usecols=(2,30),
+                                        delimiter=',', skiprows=1,unpack=True)
+    year, temp_def_3 = numpy.loadtxt('results/rcp6.0.csv', usecols=(2,30),
+                                        delimiter=',', skiprows=1,unpack=True)
+    year, temp_def_4 = numpy.loadtxt('results/rcp8.5.csv', usecols=(2,30),
+                                        delimiter=',', skiprows=1,unpack=True)
+    plot(year, temp_def_1,'r-', label = 'rcp_2.6')
+    plot(year, temp_def_2,'m-', label = 'rcp_4.5')
+    plot(year, temp_def_3,'b-', label = 'rcp_6.0')
+    plot(year, temp_def_4,'y-', label = 'rcp_8.5')
+
+    legend(loc='upper left')
+    title("Climate ")  
+    xlabel("Year")
+    ylabel("Temperature(s)")  
+    grid(True)
+    show()
+
+##simulate_all_rcps()
